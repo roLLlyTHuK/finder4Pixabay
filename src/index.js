@@ -14,6 +14,7 @@ const searchForm = document.querySelector('#search-form');
 const searchToggle = document.querySelector('#search-toggle');
 const gallery = document.querySelector('.gallery');
 const guard = document.querySelector('.js-guard');
+const loader = document.querySelector('.loader');
 //!observer
 const options = {
   root: null,
@@ -29,7 +30,6 @@ const observer = new IntersectionObserver((entries) => {
 }, options);
 observer.observe(guard);
 //!loader
-const loader = document.querySelector('.loader');
 function showLoader() {
     loader.style.display = 'block';
 }
@@ -153,7 +153,13 @@ async function loadMore() {
         hideLoader();
     }
 }
-
+searchToggle.addEventListener('change', (event) => {
+    if (event.target.checked) {
+        searchForm.searchQuery.placeholder = 'Search for videos...';
+    } else {
+        searchForm.searchQuery.placeholder = 'Search for images...';
+    }
+})
 
 //! плавний скролл до нових картинок
 function scrollToNextGroup() {
@@ -181,9 +187,11 @@ searchForm.addEventListener('submit', async (event) => {
     }
     currentPage = 1;
     if (currentQuery !== previousQuery || previousToggler !== currentToggler) {
+       
         removeCards();
     } 
     previousQuery = currentQuery;
+    previousToggler = currentToggler;
     showLoader();
        
     if (searchToggle.checked) {
