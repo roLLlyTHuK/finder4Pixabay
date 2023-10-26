@@ -1,14 +1,51 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
-    <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
-  </head>
-  <body>
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <include src="./partials/example.html"></include>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Images Finder</title>
+  <script src="https://kit.fontawesome.com/fdbe749710.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css/styles.css" />
+
+</head>
+
+<body>
+  <header>
+    <div class="logo">Finder on <span class="rainbow">Pixabay</span>.com</div>
+    <div class="form-container">
+      <form class="search-form" id="search-form">
+        <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+      <div class="toggle-container">
+        images
+        <label class="toggle">
+          <input class="toggle-input" type="checkbox" id="search-toggle">
+          <div class="toggle-bg">
+            <div class="toggle-sphere">
+              <div class="toggle-sphere-bg">
+              </div>
+              <div class="toggle-sphere-overlay"></div>
+            </div>
+          </div>
+        </label>
+        videos
+      </div>
+    </div>
+
+  </header>
+  <main>
+    <div class="loader">
+      <div class="section-left"></div>
+      <div class="section-right"></div>
+    </div>
+    <div class="gallery"></div>
+    <div class="js-guard"></div>
+    <div class="area">
+    </div>
+  </main>
+  <script type="module" src="index.js"></script>
+</body>
+
 </html>
