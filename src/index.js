@@ -100,9 +100,10 @@ function renderVideos(videos) {
         const card = document.createElement('div');
         card.classList.add('video-card');
         card.innerHTML = `
-  <iframe id="vimeo-player" src="${video.videos.tiny.url}" width="640" height="360" frameborder="0"
-    autoplay="false" allowfullscreen></iframe>
-            <div class="info">
+        <iframe id="vimeo-player" src="${video.videos.tiny.url}" width="640" height="360" frameborder="0" autoplay="false" muted="true"
+            allowfullscreen> </iframe>
+         <div class="info">
+         <p class="info-item"><b>Tags:</b></br>${video.tags}</p>
                 <p class="info-item"><b>Likes</b></br> ${video.likes}</p>
                 <p class="info-item"><b>Views</b></br> ${video.views}</p>
                 <p class="info-item"><b>Comments</b></br> ${video.comments}</p>
@@ -110,7 +111,7 @@ function renderVideos(videos) {
             </div>
         `;
         gallery.appendChild(card);
-    });
+});
     isGalleryLoaded = true;
 }
 
@@ -153,13 +154,6 @@ async function loadMore() {
         hideLoader();
     }
 }
-searchToggle.addEventListener('change', (event) => {
-    if (event.target.checked) {
-        searchForm.searchQuery.placeholder = 'Search for videos...';
-    } else {
-        searchForm.searchQuery.placeholder = 'Search for images...';
-    }
-})
 
 //! плавний скролл до нових картинок
 function scrollToNextGroup() {
@@ -193,16 +187,16 @@ searchForm.addEventListener('submit', async (event) => {
     previousQuery = currentQuery;
     previousToggler = currentToggler;
     showLoader();
-       
+    
     if (searchToggle.checked) {
         const videos = await searchVideos(currentQuery);
         // Обработка результатов поиска видео
-           if (videos.length === 0) {
+        if (videos.length === 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Sorry',
                 text: 'There are no images matching your search query. Please try another query.',
-      
+                
             })
         } else {
             renderVideos(videos);
@@ -224,7 +218,7 @@ searchForm.addEventListener('submit', async (event) => {
                 icon: 'error',
                 title: 'Sorry',
                 text: 'There are no images matching your search query. Please try another query.',
-      
+                
             })
         } else {
             renderImages(images);
@@ -239,9 +233,18 @@ searchForm.addEventListener('submit', async (event) => {
             })
         }
     }
-
+    
     hideLoader();
 });
+
+
+searchToggle.addEventListener('change', (event) => {
+    if (event.target.checked) {
+        searchForm.searchQuery.placeholder = 'Search for videos...';
+    } else {
+        searchForm.searchQuery.placeholder = 'Search for images...';
+    }
+})
 
 
 
