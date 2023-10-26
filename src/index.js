@@ -171,7 +171,6 @@ searchForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const currentQuery = event.target.searchQuery.value.trim();
     const currentToggler = searchToggle.checked;
-    console.log(currentToggler);
     if (currentQuery === '') {
         Swal.fire({
             icon: 'warning',
