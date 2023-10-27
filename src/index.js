@@ -100,7 +100,7 @@ function renderVideos(videos) {
         const card = document.createElement('div');
         card.classList.add('video-card');
         card.innerHTML = `
-        <iframe id="vimeo-player" src="${video.videos.tiny.url}" width="640" height="360" frameborder="0" autoplay="false" muted="true"
+         <iframe id="vimeo-player" src="${video.videos.tiny.url}" width="640" height="360" frameborder="0" autoplay="false" muted="true"
             allowfullscreen> </iframe>
          <div class="info">
          <p class="info-item"><b>Tags:</b></br>${video.tags}</p>
