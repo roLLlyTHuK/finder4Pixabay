@@ -8,7 +8,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 const apiKey = '39198737-e441a494d9c878a4c9c462200';
 const perPage = 40;
 let currentPage = 1;
-let currentQuery = '';
+
 let isGalleryLoaded = false;
 const searchForm = document.querySelector('#search-form');
 const searchToggle = document.querySelector('#search-toggle');
@@ -120,7 +120,7 @@ async function loadMore() {
     if (isGalleryLoaded) {
         currentPage++;
         showLoader();
-        
+        const currentQuery = searchForm.searchQuery.value.trim();
         if (searchToggle.checked) {
             const videos = await searchVideos(currentQuery);
             if (videos.length === 0) {
@@ -200,12 +200,12 @@ searchForm.addEventListener('submit', async (event) => {
             })
         } else {
             renderVideos(videos);
-            const text = `Hooray! We found ${videos.length} videos.`
+            const text = `We found ${videos.length} videos.`
             Swal.fire({
-                position: 'top-end',
                 icon: 'success',
-                title: text,
-                width: '400px',
+                title: 'Hooray! ',
+                text: text,
+                width: '320px',
                 showConfirmButton: false,
                 timer: 1000
             })
@@ -222,12 +222,12 @@ searchForm.addEventListener('submit', async (event) => {
             })
         } else {
             renderImages(images);
-            const text = `Hooray! We found ${images.length} images.`
+            const text = `We found ${images.length} images.`
             Swal.fire({
-                position: 'top-end',
                 icon: 'success',
-                title: text,
-                width: '400px',
+                title: 'Hooray!',
+                text: text,
+                width: '320px',
                 showConfirmButton: false,
                 timer: 1000
             })
