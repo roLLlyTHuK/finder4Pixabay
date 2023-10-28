@@ -6,6 +6,10 @@ body {
     background: #4e54c8;
     background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
 }
+a{
+    all:unset;
+    cursor: pointer;
+}
 header{
     position: fixed;
     flex-wrap: wrap;
@@ -24,6 +28,7 @@ header{
     text-align: center;
     text-wrap: wrap;
     padding: 0;
+    cursor: default;
 }
 .rainbow {
     text-transform: uppercase;

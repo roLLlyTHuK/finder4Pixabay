@@ -100,7 +100,7 @@ function renderVideos(videos) {
         const card = document.createElement('div');
         card.classList.add('video-card');
         card.innerHTML = `
-        <video width="320" height="240" controls muted>
+        <video width="320" height="240" controls>
             <source srcset="${video.videos.large.url}" media="(min-width: 1024px)" type="video/mp4">
             <source srcset="${video.videos.medium.url}" media="(min-width: 768px)" type="video/mp4">
             <source srcset="${video.videos.small.url}" media="(min-width: 480px)" type="video/mp4">
