@@ -44,7 +44,7 @@ const lightbox = new SimpleLightbox('.gallery a',{
 //! робимо запит картинок 
 async function searchImages(query) {
     try {
-        const response = await axios.get(`https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&page=${currentPage}&per_page=${perPage}`);
+        const response = await axios.get(`https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=all&orientation=horizontal&safesearch=true&page=${currentPage}&per_page=${perPage}`);
        
         const data = response.data;
         return data.hits;
@@ -57,7 +57,7 @@ async function searchImages(query) {
 //! робимо запит відео
 async function searchVideos(query) {
     try {
-        const response = await axios.get(`https://pixabay.com/api/videos/?key=${apiKey}&q=${query}&safesearch=false&page=${currentPage}&per_page=10`);
+        const response = await axios.get(`https://pixabay.com/api/videos/?key=${apiKey}&q=${query}&video_type=all&safesearch=false&page=${currentPage}&per_page=10`);
        
         const data = response.data;
         return data.hits;
@@ -100,10 +100,14 @@ function renderVideos(videos) {
         const card = document.createElement('div');
         card.classList.add('video-card');
         card.innerHTML = `
-         <iframe id="vimeo-player" src="${video.videos.tiny.url}" width="640" height="360" frameborder="0" autoplay="false" muted="true"
-            allowfullscreen> </iframe>
+        <video width="320" height="240" controls muted>
+            <source srcset="${video.videos.large.url}" media="(min-width: 1024px)" type="video/mp4">
+            <source srcset="${video.videos.medium.url}" media="(min-width: 768px)" type="video/mp4">
+            <source srcset="${video.videos.small.url}" media="(min-width: 480px)" type="video/mp4">
+            <source src="${video.videos.tiny.url}" type="video/mp4">
+            Ваш браузер не поддерживает воспроизведение видео.
+        </video>
          <div class="info">
-         <p class="info-item"><b>Tags:</b></br>${video.tags}</p>
                 <p class="info-item"><b>Likes</b></br> ${video.likes}</p>
                 <p class="info-item"><b>Views</b></br> ${video.views}</p>
                 <p class="info-item"><b>Comments</b></br> ${video.comments}</p>
