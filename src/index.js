@@ -102,9 +102,9 @@ function renderVideos(videos) {
         card.innerHTML = `
         <video width="640" height="480" controls>
             <source src="${video.videos.tiny.url}" type="video/mp4">
-            <source src="${video.videos.large.url}" media="(min-width: 1024px)" tye="video/mp4">
-            <source src="${video.videos.medium.url}" media="(min-width: 768px)" type="video/mp4">
-            <source src="${video.videos.small.url}" media="(min-width: 480px)" type="video/mp4">
+            <source src="${video.videos.large.url}" type="video/mp4">
+            <source src="${video.videos.medium.url}" type="video/mp4">
+            <source src="${video.videos.small.url}" type="video/mp4">
             Ваш браузер не поддерживает воспроизведение видео.
         </video>
         <div class="info">
