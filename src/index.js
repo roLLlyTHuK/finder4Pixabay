@@ -3,7 +3,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
-
+import { scrollToTopButton, scrollToTop } from './modules/scroll';
 
 const apiKey = '39198737-e441a494d9c878a4c9c462200';
 const perPage = 40;
@@ -57,7 +57,7 @@ async function searchImages(query) {
 //! робимо запит відео
 async function searchVideos(query) {
     try {
-        const response = await axios.get(`https://pixabay.com/api/videos/?key=${apiKey}&q=${query}&video_type=all&safesearch=false&page=${currentPage}&per_page=10`);
+        const response = await axios.get(`https://pixabay.com/api/videos/?key=${apiKey}&q=${query}&video_type=all&safesearch=false&page=${currentPage}&per_page=20`);
        
         const data = response.data;
         return data.hits;
@@ -100,14 +100,14 @@ function renderVideos(videos) {
         const card = document.createElement('div');
         card.classList.add('video-card');
         card.innerHTML = `
-        <video width="320" height="240" controls>
-            <source srcset="${video.videos.large.url}" media="(min-width: 1024px)" type="video/mp4">
-            <source srcset="${video.videos.medium.url}" media="(min-width: 768px)" type="video/mp4">
-            <source srcset="${video.videos.small.url}" media="(min-width: 480px)" type="video/mp4">
+        <video width="640" height="480" controls>
             <source src="${video.videos.tiny.url}" type="video/mp4">
+            <source src="${video.videos.large.url}" media="(min-width: 1024px)" tye="video/mp4">
+            <source src="${video.videos.medium.url}" media="(min-width: 768px)" type="video/mp4">
+            <source src="${video.videos.small.url}" media="(min-width: 480px)" type="video/mp4">
             Ваш браузер не поддерживает воспроизведение видео.
         </video>
-         <div class="info">
+        <div class="info">
                 <p class="info-item"><b>Likes</b></br> ${video.likes}</p>
                 <p class="info-item"><b>Views</b></br> ${video.views}</p>
                 <p class="info-item"><b>Comments</b></br> ${video.comments}</p>
@@ -284,3 +284,5 @@ function renderBackground() {
         area.appendChild(backgroundList);
     };
 renderBackground();
+
+scrollToTopButton.addEventListener("click", scrollToTop);
