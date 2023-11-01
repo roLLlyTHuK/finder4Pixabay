@@ -1,5 +1,5 @@
 body {
-  width: 100vw;
+  width: 100%;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -98,113 +98,6 @@ input[type='text']:focus {
   outline-offset: -2px;
 }
 
-.toggle-container {
-  display: flex;
-  align-items: center;
-  justify-self: center;
-  color: #fff;
-  margin: 0 5rem;
-}
-.toggle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 32px;
-  background: #fff;
-  border-radius: 50px;
-  background-clip: padding-box;
-  cursor: pointer;
-  margin: 0 0.5rem;
-}
-.toggle-bg {
-  width: 50px;
-  height: 25px;
-  background: #007bff;
-  background: linear-gradient(to right, #007bff 50%, #e2581d 50% 100%);
-  background-size: 200% 100%;
-  background-position: 75%;
-  border-radius: 50px;
-  border: solid 5px transparent;
-  background-clip: padding-box;
-  box-shadow: inset 0px 30px 50px 15px hsla(0, 0%, 0%, 0.3);
-  transition: all 0.85s ease-in-out;
-}
-.toggle-sphere {
-  position: relative;
-  height: 24px;
-  width: 24px;
-  background: #ff773d;
-  background: linear-gradient(to right, #69a7c3 50%, #e2581d 50% 100%);
-  border-radius: 50%;
-  transform-origin: top left;
-  transform: translateY(1px);
-  box-shadow: 2px 0px 5px 1px hsla(18, 77%, 15%, 0.05),
-    0px 10px 10px 1px hsla(18, 77%, 15%, 0.2),
-    -3px 0px 3px 1px hsla(0, 0%, 0%, 0.75);
-  transition: all 0.85s ease-in-out;
-}
-.toggle-sphere:before {
-  top: -2px;
-}
-.toggle-sphere:after {
-  bottom: -1px;
-}
-.toggle-sphere-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border-radius: 50%;
-  box-shadow: inset 0px -30px 30px 15px hsla(0, 0%, 0%, 0.1);
-}
-.toggle-sphere-bg {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  border-radius: 50%;
-  transition: transform 0.85s ease-in-out;
-}
-.toggle-sphere-bg:before,
-.toggle-sphere-bg:after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-.toggle-sphere-bg:before {
-  background-color: #e2581d;
-  border-radius: 50%;
-}
-.toggle-sphere-bg:after {
-  background-color: #69a7c3;
-  transform: rotateY(180deg);
-  border-radius: 50%;
-}
-.toggle-input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  position: absolute;
-}
-.toggle-input:checked + .toggle-bg {
-  background-position: 25%;
-}
-.toggle-input:checked + .toggle-bg .toggle-sphere {
-  transform: translateX(25px) translateY(1px);
-  box-shadow: -2px 0px 5px 1px hsla(18, 77%, 15%, 0.05),
-    0px 10px 10px 1px hsla(18, 77%, 15%, 0.2),
-    3px 0px 3px 0px hsla(0, 0%, 0%, 0.75);
-}
-.toggle-input:checked + .toggle-bg .toggle-sphere-bg {
-  transform: rotateY(180deg);
-}
-
 .gallery {
   display: flex;
   justify-content: center;
@@ -235,7 +128,7 @@ input[type='text']:focus {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 640px;
+  width: 320px;
   border: 1px solid #ccc;
   background: #4e54c8;
   padding: 0.5rem;

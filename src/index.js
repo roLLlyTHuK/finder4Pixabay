@@ -4,11 +4,15 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import { scrollToTopButton, scrollToTop } from './modules/scroll';
-
+import {
+  URL,
+  queryType,
+  optgroupLabel,
+  getSelectedOptionValueAndGroup,
+} from './modules/categories';
 const apiKey = '39198737-e441a494d9c878a4c9c462200';
 const perPage = 40;
 let currentPage = 1;
-
 let isGalleryLoaded = false;
 const searchForm = document.querySelector('#search-form');
 const searchToggle = document.querySelector('#search-toggle');
@@ -40,11 +44,10 @@ const lightbox = new SimpleLightbox('.gallery a', {
   enableKeyboard: true,
 });
 
-//! робимо запит картинок
-async function searchImages(query) {
+async function searchContent(query) {
   try {
     const response = await axios.get(
-      `https://pixabay.com/api/?key=${apiKey}&q=${query}&image_type=all&orientation=horizontal&safesearch=true&page=${currentPage}&per_page=${perPage}`
+      `${URL}?key=${apiKey}&q=${query}&${queryType}&orientation=horizontal&safesearch=true&page=${currentPage}&per_page=${perPage}`
     );
 
     const data = response.data;
@@ -56,70 +59,52 @@ async function searchImages(query) {
     return [];
   }
 }
-//! робимо запит відео
-async function searchVideos(query) {
-  try {
-    const response = await axios.get(
-      `https://pixabay.com/api/videos/?key=${apiKey}&q=${query}&video_type=all&safesearch=false&page=${currentPage}&per_page=20`
-    );
-
-    const data = response.data;
-    return data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    redirectTo404Page();
-    return [];
-  }
-}
-
 function redirectTo404Page() {
   // window.location.href = '404.html';
   window.open('404.html', '_blank');
 }
 
-//! створюємо вміст галлереї картинок
-function renderImages(images) {
-  images.forEach(image => {
+function renderContent(content) {
+  content.forEach(item => {
     const card = document.createElement('div');
-    card.classList.add('photo-card');
-    card.innerHTML = `
-            <a href="${image.largeImageURL}" data-lightbox="image">
-                <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
-            </a>
-            <div class="info">
-                <p class="info-item"><b>Likes</b></br> ${image.likes}</p>
-                <p class="info-item"><b>Views</b></br> ${image.views}</p>
-                <p class="info-item"><b>Comments</b></br> ${image.comments}</p>
-                <p class="info-item"><b>Downloads</b></br> ${image.downloads}</p>
-            </div>
-        `;
-    gallery.appendChild(card);
-  });
-  lightbox.refresh();
-  isGalleryLoaded = true;
-}
-//! створюємо вміст галлереї відео
-function renderVideos(videos) {
-  videos.forEach(video => {
-    const card = document.createElement('div');
-    card.classList.add('video-card');
-    card.innerHTML = `
-        <video width="640" height="480" controls>
-            <source src="${video.videos.tiny.url}" type="video/mp4">
-            <source src="${video.videos.large.url}" type="video/mp4">
-            <source src="${video.videos.medium.url}" type="video/mp4">
-            <source src="${video.videos.small.url}" type="video/mp4">
-            Ваш браузер не поддерживает воспроизведение видео.
+    card.classList.add(
+      optgroupLabel === 'Images' ? 'photo-card' : 'video-card'
+    );
+
+    if (URL === 'https://pixabay.com/api/') {
+      card.innerHTML = `
+        <a href="${item.largeImageURL}" data-lightbox="image">
+          <img src="${item.webformatURL}" alt="${item.tags}" loading="lazy" />
+        </a>
+        <div class="info">
+          <p class="info-item"><b>Likes</b></br> ${item.likes}</p>
+          <p class="info-item"><b>Views</b></br> ${item.views}</p>
+          <p class="info-item"><b>Comments</b></br> ${item.comments}</p>
+          <p class="info-item"><b>Downloads</b></br> ${item.downloads}</p>
+        </div>
+      `;
+    } else {
+      card.innerHTML = `
+        <video width="320" height="240" controls>
+          <source src="${item.videos.tiny.url}" type="video/mp4">
+          <source src="${item.videos.large.url}" type="video/mp4">
+          <source src="${item.videos.medium.url}" type="video/mp4">
+          <source src="${item.videos.small.url}" type="video/mp4">
+          Ваш браузер не поддерживает воспроизведение видео.
         </video>
         <div class="info">
-                <p class="info-item"><b>Likes</b></br> ${video.likes}</p>
-                <p class="info-item"><b>Views</b></br> ${video.views}</p>
-                <p class="info-item"><b>Comments</b></br> ${video.comments}</p>
-                <p class="info-item"><b>Downloads</b></br> ${video.downloads}</p>
-            </div>
-        `;
+          <p class="info-item"><b>Likes</b></br> ${item.likes}</p>
+          <p class="info-item"><b>Views</b></br> ${item.views}</p>
+          <p class="info-item"><b>Comments</b></br> ${item.comments}</p>
+          <p class="info-item"><b>Downloads</b></br> ${item.downloads}</p>
+        </div>
+      `;
+    }
+
     gallery.appendChild(card);
   });
+
+  lightbox.refresh();
   isGalleryLoaded = true;
 }
 
@@ -129,38 +114,22 @@ async function loadMore() {
     currentPage++;
     showLoader();
     const currentQuery = searchForm.searchQuery.value.trim();
-    if (searchToggle.checked) {
-      const videos = await searchVideos(currentQuery);
-      if (videos.hits.length === 0) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: "We're sorry, but you've reached the end of search results for videos.",
-        });
-        observer.unobserve(guard);
-      } else {
-        // Обработка загруженных видео
-        renderVideos(videos.hits);
-        scrollToNextGroup();
-      }
+    const content = await searchContent(currentQuery);
+    if (content.hits.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "We're sorry, but you've reached the end of search results.",
+      });
+      observer.unobserve(guard);
     } else {
-      const images = await searchImages(currentQuery);
-      if (images.hits.length === 0) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: "We're sorry, but you've reached the end of search results for images.",
-        });
-        observer.unobserve(guard);
-      } else {
-        // Обработка загруженных изображений
-        renderImages(images.hits);
-        scrollToNextGroup();
-      }
+      // Обработка
+      renderContent(content.hits);
+      scrollToNextGroup();
     }
-
-    hideLoader();
   }
+
+  hideLoader();
 }
 
 //! плавний скролл до нових картинок
@@ -174,12 +143,9 @@ function scrollToNextGroup() {
 }
 
 //! обробник пошуку з логікою на оновлення галлереї в разі зміни слова пошуку
-let previousQuery = '';
-let previousToggler = false;
 searchForm.addEventListener('submit', async event => {
   event.preventDefault();
   const currentQuery = event.target.searchQuery.value.trim();
-  const currentToggler = searchToggle.checked;
   if (currentQuery === '') {
     Swal.fire({
       icon: 'warning',
@@ -188,68 +154,32 @@ searchForm.addEventListener('submit', async event => {
     });
     return;
   }
+
   currentPage = 1;
-  if (currentQuery !== previousQuery || previousToggler !== currentToggler) {
-    removeCards();
-  }
-  previousQuery = currentQuery;
-  previousToggler = currentToggler;
+  removeCards();
   showLoader();
-
-  if (searchToggle.checked) {
-    const videos = await searchVideos(currentQuery);
-    // Обработка результатов поиска видео
-    if (videos.hits.length === 0) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Sorry',
-        text: 'There are no images matching your search query. Please try another query.',
-      });
-    } else {
-      renderVideos(videos.hits);
-      const text = `We found ${videos.totalHits} videos.`;
-      Swal.fire({
-        icon: 'success',
-        title: 'Hooray! ',
-        text: text,
-        width: '320px',
-        showConfirmButton: false,
-        timer: 1000,
-      });
-    }
+  const content = await searchContent(currentQuery);
+  console.log(content);
+  // Обработка результатов поиска изображений
+  if (content.hits.length === 0) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Sorry',
+      text: 'There are no results matching your search query. Please try another query.',
+    });
   } else {
-    const images = await searchImages(currentQuery);
-    console.log(images);
-    // Обработка результатов поиска изображений
-    if (images.hits.length === 0) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Sorry',
-        text: 'There are no images matching your search query. Please try another query.',
-      });
-    } else {
-      renderImages(images.hits);
-      const text = `We found ${images.totalHits} images.`;
-      Swal.fire({
-        icon: 'success',
-        title: 'Hooray!',
-        text: text,
-        width: '320px',
-        showConfirmButton: false,
-        timer: 1000,
-      });
-    }
+    renderContent(content.hits);
+    const text = `We found ${content.totalHits} results.`;
+    Swal.fire({
+      icon: 'success',
+      title: 'Hooray!',
+      text: text,
+      width: '320px',
+      showConfirmButton: false,
+      timer: 1000,
+    });
   }
-
   hideLoader();
-});
-
-searchToggle.addEventListener('change', event => {
-  if (event.target.checked) {
-    searchForm.searchQuery.placeholder = 'Search for videos...';
-  } else {
-    searchForm.searchQuery.placeholder = 'Search for images...';
-  }
 });
 
 //! скидання галлереї
@@ -285,3 +215,4 @@ function renderBackground() {
 renderBackground();
 
 scrollToTopButton.addEventListener('click', scrollToTop);
+getSelectedOptionValueAndGroup();
