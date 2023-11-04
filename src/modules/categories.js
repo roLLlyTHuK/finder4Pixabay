@@ -3,6 +3,35 @@ let queryType = 'all';
 let optgroupLabel = 'Images';
 const tagsContainer = document.querySelector('.tags');
 let selectedTags = [];
+const startTags = [
+  'backgrounds',
+  'fashion',
+  'nature',
+  'science',
+  'education',
+  'feelings',
+  'health',
+  'people',
+  'religion',
+  'places',
+  'animals',
+  'industry',
+  'computer',
+  'food',
+  'sports',
+  'transportation',
+  'travel',
+  'buildings',
+  'business',
+  'music',
+];
+
+// Функция для инициализации генерации тегов
+function initializeTags() {
+  tagsContainer.innerHTML = ''; // Очистить контейнер с тегами
+  generateTagElements(startTags);
+}
+initializeTags();
 
 function getSelectedValue() {
   const categoryHeader = document.getElementById('categoryHeader');
