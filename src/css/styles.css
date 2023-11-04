@@ -18,6 +18,7 @@ header {
   align-items: baseline;
   padding: 0.5rem 0;
 }
+/*============================|Logo|===========================*/
 .logo {
   width: 25%;
   min-width: 320px;
@@ -57,6 +58,7 @@ header {
     background-position: 0%;
   }
 }
+/*============================|Form|===========================*/
 .form-container {
   display: flex;
   width: 65%;
@@ -97,7 +99,66 @@ input[type='text']:focus {
   outline-color: #007bff;
   outline-offset: -2px;
 }
+/*============================|Selector|===========================*/
 
+.selector {
+  position: relative;
+  width: 140px;
+  margin: 0 auto;
+  z-index: 999;
+}
+.selector.isActive .selector-body {
+  display: block;
+}
+
+.selector-header {
+  display: flex;
+  /* border: 1px solid #ccc; */
+  background-color: #fff;
+  cursor: pointer;
+  height: 36px;
+}
+.selector-current {
+  font-size: 1rem;
+  padding: 8px;
+}
+.selector-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 36px;
+  width: 36px;
+  margin-left: auto;
+  text-align: center;
+}
+.selector-body {
+  position: absolute;
+  display: none;
+  top: 100%;
+  right: 0;
+  left: 0;
+  /* border: 1px solid #ccc; */
+  background-color: #fff;
+  border-top: 0;
+}
+.selector-subtitle {
+  font-size: 1rem;
+  padding: 8px;
+  font-weight: 600;
+  /* text-transform: uppercase; */
+  text-align: left;
+}
+.selector-item {
+  font-size: 1rem;
+  line-height: 0.7rem;
+  padding: 8px;
+  padding-left: 16px;
+}
+.selector-item:hover {
+  background-color: #007bff;
+}
+/*============================|Gallery|===========================*/
 .gallery {
   display: flex;
   justify-content: center;
@@ -162,11 +223,7 @@ input[type='text']:focus {
   font-size: 0.7rem;
   border-radius: 4px;
 }
-/**
-  |============================
-  | background
-  |============================
-*/
+/*============================|Background|===========================*/
 .circles {
   position: absolute;
   top: 0;
@@ -276,11 +333,7 @@ input[type='text']:focus {
     border-radius: 50%;
   }
 }
-/**
-  |============================
-  | loader
-  |============================
-*/
+/*============================|Loader|===========================*/
 .loader {
   display: none;
   position: absolute;
@@ -365,11 +418,7 @@ input[type='text']:focus {
   }
 }
 
-/**
-  |============================
-  | scrollToTopButton
-  |============================
-*/
+/*============================|Scroll to top|===========================*/
 #scrollToTopButton {
   position: fixed;
   z-index: 999;

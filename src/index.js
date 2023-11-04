@@ -10,6 +10,7 @@ import {
   optgroupLabel,
   getSelectedOptionValueAndGroup,
 } from './modules/categories';
+import { select } from './modules/select';
 const apiKey = '39198737-e441a494d9c878a4c9c462200';
 const perPage = 40;
 let currentPage = 1;
@@ -159,6 +160,7 @@ searchForm.addEventListener('submit', async event => {
   removeCards();
   showLoader();
   const content = await searchContent(currentQuery);
+  console.log(searchContent);
   console.log(content);
   // Обработка результатов поиска изображений
   if (content.hits.length === 0) {
@@ -216,3 +218,4 @@ renderBackground();
 
 scrollToTopButton.addEventListener('click', scrollToTop);
 getSelectedOptionValueAndGroup();
+select();

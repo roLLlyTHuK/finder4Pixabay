@@ -1,27 +1,44 @@
-let URL = '';
-let queryType = '';
-let optgroupLabel = '';
-function getSelectedOptionValueAndGroup() {
-  const selectElement = document.getElementById('category');
-  const selectedOption = selectElement.options[selectElement.selectedIndex];
-  const optionValue = selectedOption.value;
-  optgroupLabel = selectedOption.parentNode.label;
-  console.log('Выбрано значение:', optionValue);
-  console.log('Название подгруппы:', optgroupLabel);
-  if (optgroupLabel === 'Images') {
-    URL = 'https://pixabay.com/api/';
-    queryType = `image_type=${optionValue}`;
-  } else {
-    URL = 'https://pixabay.com/api/videos/';
-    queryType = `video_type=${optionValue}`;
-  }
-  console.log(URL);
-  console.log(queryType);
-  return URL, queryType, optgroupLabel;
-}
+let URL = 'https://pixabay.com/api/';
+let queryType = 'all';
+let optgroupLabel = 'Images';
 
-document
-  .getElementById('category')
-  .addEventListener('change', getSelectedOptionValueAndGroup);
+function getSelectedOptionValueAndGroup() {
+  const categoryHeader = document.getElementById('categoryHeader');
+  const categoryBody = document.getElementById('categoryBody');
+  const selectItems = categoryBody.querySelectorAll('.selector-item');
+  const selectCurrent = categoryHeader.querySelector('.selector-current');
+
+  for (const item of selectItems) {
+    item.addEventListener('click', function () {
+      const optionValue = item.textContent.toLocaleLowerCase();
+      selectCurrent.textContent = optionValue;
+
+      let optgroupLabel = '';
+      const parentDiv = item.parentElement;
+      if (parentDiv) {
+        if (parentDiv.classList.contains('image-selector')) {
+          optgroupLabel = 'Images';
+        } else if (parentDiv.classList.contains('video-selector')) {
+          optgroupLabel = 'Videos';
+        }
+      }
+
+      if (optgroupLabel === 'Images') {
+        URL = 'https://pixabay.com/api/';
+        queryType = `image_type=${optionValue}`;
+      } else if (optgroupLabel === 'Videos') {
+        URL = 'https://pixabay.com/api/videos/';
+        queryType = `video_type=${optionValue}`;
+      } else {
+        // Обработка других случаев
+      }
+
+      console.log('Выбрано значение:', optionValue);
+      console.log('Название подгруппы:', optgroupLabel);
+      console.log('URL:', URL);
+      console.log('Query Type:', queryType);
+    });
+  }
+}
 
 export { URL, queryType, optgroupLabel, getSelectedOptionValueAndGroup };
