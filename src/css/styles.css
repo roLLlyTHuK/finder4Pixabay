@@ -11,53 +11,15 @@ a {
   cursor: pointer;
 }
 header {
-  flex-wrap: wrap;
-  background-color: #007bff;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: baseline;
+  flex-wrap: wrap;
+  background-color: #007bff;
   padding: 0.5rem 0;
 }
-/*============================|Logo|===========================*/
-.logo {
-  width: 25%;
-  min-width: 320px;
-  color: #fff;
-  font-size: 1.5rem;
-  text-align: center;
-  text-wrap: wrap;
-  padding: 0;
-  cursor: default;
-}
-.rainbow {
-  text-transform: uppercase;
-  font-weight: 700;
-  background-image: linear-gradient(
-    90deg,
-    red,
-    orange,
-    yellow,
-    green,
-    blue,
-    indigo,
-    violet
-  );
-  background-size: 200%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: rainbowText 5s ease-in-out infinite;
-}
 
-@keyframes rainbowText {
-  0% {
-    background-position: 200%;
-  }
-
-  100% {
-    background-position: 0%;
-  }
-}
 /*============================|Form|===========================*/
 .form-container {
   display: flex;
@@ -103,7 +65,7 @@ input[type='text']:focus {
 
 .selector {
   position: relative;
-  width: 140px;
+  width: 130px;
   margin: 0 auto;
   z-index: 999;
 }
@@ -143,21 +105,49 @@ input[type='text']:focus {
   border-top: 0;
 }
 .selector-subtitle {
-  font-size: 1rem;
+  font-size: 0.9rem;
   padding: 8px;
   font-weight: 600;
-  /* text-transform: uppercase; */
+  text-transform: uppercase;
   text-align: left;
 }
 .selector-item {
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 0.7rem;
   padding: 8px;
   padding-left: 16px;
 }
 .selector-item:hover {
   background-color: #007bff;
+  color: #fff;
 }
+/*============================|Tags|===========================*/
+.tags {
+  display: flex;
+  width: 65%;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0 auto;
+}
+
+.tag {
+  background-color: #0074d9;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.tag.selected {
+  background-color: #fff;
+  color: #0074d9;
+}
+
+.selected-tags {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
 /*============================|Gallery|===========================*/
 .gallery {
   display: flex;

@@ -8,9 +8,11 @@ import {
   URL,
   queryType,
   optgroupLabel,
-  getSelectedOptionValueAndGroup,
+  getSelectedValue,
+  selectedTags,
 } from './modules/categories';
 import { select } from './modules/select';
+// import { selectedTags } from './modules/tags';
 const apiKey = '39198737-e441a494d9c878a4c9c462200';
 const perPage = 40;
 let currentPage = 1;
@@ -46,9 +48,15 @@ const lightbox = new SimpleLightbox('.gallery a', {
 });
 
 async function searchContent(query) {
+  if (selectedTags.length !== 0) {
+    const tegsCategory = selectedTags.join(',');
+    queryCategory = `&category=${tegsCategory}`;
+  } else {
+    queryCategory = '';
+  }
   try {
     const response = await axios.get(
-      `${URL}?key=${apiKey}&q=${query}&${queryType}&orientation=horizontal&safesearch=true&page=${currentPage}&per_page=${perPage}`
+      `${URL}?key=${apiKey}&q=${query}&${queryType}${queryCategory}&orientation=horizontal&safesearch=true&page=${currentPage}&per_page=${perPage}`
     );
 
     const data = response.data;
@@ -124,7 +132,6 @@ async function loadMore() {
       });
       observer.unobserve(guard);
     } else {
-      // Обработка
       renderContent(content.hits);
       scrollToNextGroup();
     }
@@ -160,9 +167,8 @@ searchForm.addEventListener('submit', async event => {
   removeCards();
   showLoader();
   const content = await searchContent(currentQuery);
-  console.log(searchContent);
   console.log(content);
-  // Обработка результатов поиска изображений
+  //! Обробка результатів пошуку
   if (content.hits.length === 0) {
     Swal.fire({
       icon: 'error',
@@ -217,5 +223,5 @@ function renderBackground() {
 renderBackground();
 
 scrollToTopButton.addEventListener('click', scrollToTop);
-getSelectedOptionValueAndGroup();
 select();
+getSelectedValue();
