@@ -137,6 +137,7 @@ input[type='text']:focus {
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 0.6rem;
 }
 .tag.selected {
   background-color: #fff;

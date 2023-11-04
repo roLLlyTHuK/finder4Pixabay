@@ -48,15 +48,11 @@ const lightbox = new SimpleLightbox('.gallery a', {
 });
 
 async function searchContent(query) {
-  if (selectedTags.length !== 0) {
-    const tegsCategory = selectedTags.join(',');
-    queryCategory = `&category=${tegsCategory}`;
-  } else {
-    queryCategory = '';
-  }
   try {
+    const tagQuery =
+      selectedTags.length > 0 ? `&category=${selectedTags.join(',')}` : '';
     const response = await axios.get(
-      `${URL}?key=${apiKey}&q=${query}&${queryType}${queryCategory}&orientation=horizontal&safesearch=true&page=${currentPage}&per_page=${perPage}`
+      `${URL}?key=${apiKey}&q=${query}&${queryType}${tagQuery}&orientation=horizontal&safesearch=true&page=${currentPage}&per_page=${perPage}`
     );
 
     const data = response.data;

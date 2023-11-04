@@ -128,7 +128,7 @@ function generateTagElements(tagArray) {
     tagElement.textContent = tagText;
     tagElement.setAttribute('data-tag', tagText);
     tagsContainer.appendChild(tagElement);
-
+    selectedTags = [];
     tagElement.addEventListener('click', () => {
       if (selectedTags.includes(tagText)) {
         selectedTags = selectedTags.filter(item => item !== tagText);
