@@ -11,6 +11,9 @@ let select = function () {
   });
   function selectToggle() {
     this.parentElement.classList.toggle('isActive');
+    const arrow = this.querySelector('.fa');
+    arrow.classList.toggle('fa-angle-down');
+    arrow.classList.toggle('fa-angle-up');
   }
   function selectChoose() {
     let text = this.innerText,
@@ -18,6 +21,9 @@ let select = function () {
       currentText = select.querySelector('.selector-current');
     currentText.innerText = text;
     select.classList.remove('isActive');
+    const arrow = select.querySelector('.fa');
+    arrow.classList.toggle('fa-angle-down');
+    arrow.classList.toggle('fa-angle-up');
   }
 };
 

@@ -99,8 +99,8 @@ body {
   left: 0;
   width: 30px;
   height: 100%;
-  background-color: #fff;
-  animation: shiny-btn1 3s ease-in-out infinite;
+  background-color: rgba(255, 255, 255, 0.5);
+  animation: shiny 3s ease-in-out infinite;
 }
 .btn-design:hover {
   opacity: 0.7;
@@ -112,7 +112,7 @@ body {
     inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
 }
 
-@-webkit-keyframes shiny-btn1 {
+@keyframes shiny {
   0% {
     -webkit-transform: scale(0) rotate(45deg);
     opacity: 0;
@@ -121,7 +121,7 @@ body {
     -webkit-transform: scale(0) rotate(45deg);
     opacity: 0.5;
   }
-  81% {
+  85% {
     -webkit-transform: scale(4) rotate(45deg);
     opacity: 1;
   }
