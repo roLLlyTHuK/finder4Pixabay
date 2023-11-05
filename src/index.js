@@ -56,7 +56,6 @@ async function searchContent(query) {
     );
 
     const data = response.data;
-    // return data.hits;
     return data;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -65,8 +64,8 @@ async function searchContent(query) {
   }
 }
 function redirectTo404Page() {
-  // window.location.href = '404.html';
-  window.open('404.html', '_blank');
+  window.location.href = '404.html';
+  // window.open('404.html', '_blank');
 }
 
 function renderContent(content) {

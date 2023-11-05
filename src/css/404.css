@@ -1,55 +1,132 @@
 body {
-    background-color: #141019;
-    background: radial-gradient(at 50% -20%, #908392, #0d060e) fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #141019;
+  background: radial-gradient(at 50% -20%, #908392, #0d060e) fixed;
 }
-
 
 #handboy {
-    animation: swing ease-in-out 1.3s infinite alternate;
-    transform-origin: 98% 98%;
-    transform-box: fill-box;
-
+  animation: swing ease-in-out 1.3s infinite alternate;
+  transform-origin: 98% 98%;
+  transform-box: fill-box;
 }
 
-
 #girllight {
-    animation: swing ease-in-out 1.3s infinite alternate;
-    transform-origin: 0% 97%;
-    transform-box: fill-box;
+  animation: swing ease-in-out 1.3s infinite alternate;
+  transform-origin: 0% 97%;
+  transform-box: fill-box;
 }
 
 #hairgirl {
-    animation: swinghair ease-in-out 1.3s infinite alternate;
-    transform-origin: 60% 0%;
-    transform-box: fill-box;
-
+  animation: swinghair ease-in-out 1.3s infinite alternate;
+  transform-origin: 60% 0%;
+  transform-box: fill-box;
 }
 
 #zero {
-    transform-origin: bottom;
-    transform-box: fill-box;
-
+  transform-origin: bottom;
+  transform-box: fill-box;
 }
 
 /*************swing************/
 @keyframes swing {
-    0% {
-        transform: rotate(10deg);
-    }
+  0% {
+    transform: rotate(10deg);
+  }
 
-    100% {
-        transform: rotate(-10deg);
-    }
+  100% {
+    transform: rotate(-10deg);
+  }
 }
-
 
 /*************swing hair************/
 @keyframes swinghair {
-    0% {
-        transform: rotate(6deg);
-    }
+  0% {
+    transform: rotate(6deg);
+  }
 
-    100% {
-        transform: rotate(-6deg);
-    }
+  100% {
+    transform: rotate(-6deg);
+  }
+}
+.btn-return {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem;
+  border: 1px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.back-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+.btn-design {
+  border: none;
+  background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(48, 42, 44) 100%);
+  color: #fff;
+  overflow: hidden;
+}
+.btn-design:hover {
+  text-decoration: none;
+  color: #fff;
+}
+.btn-design:before {
+  position: absolute;
+  content: '';
+  display: inline-block;
+  top: -180px;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background-color: #fff;
+  animation: shiny-btn1 3s ease-in-out infinite;
+}
+.btn-design:hover {
+  opacity: 0.7;
+}
+.btn-design:active {
+  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3),
+    -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
+    inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+@-webkit-keyframes shiny-btn1 {
+  0% {
+    -webkit-transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+  80% {
+    -webkit-transform: scale(0) rotate(45deg);
+    opacity: 0.5;
+  }
+  81% {
+    -webkit-transform: scale(4) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(50) rotate(45deg);
+    opacity: 0;
+  }
 }
